@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 07:40:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/06 18:34:06 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/06 18:35:03 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	print_msg(std::string msg = "* LOUD AND UNBEARABLE FEEDBACK NOISE *")
 
 int	main(int ac, char **av)
 {
-	std::string	input_str;
 	int			i = 1;
 
 	if (ac == 1)
