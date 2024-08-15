@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:42:28 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/08 17:00:11 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/15 13:53:12 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static std::string	get_input()
 	std::getline(std::cin, response);
 	while (response.empty() || response == "\n")
 	{
-		std::cout << "Error: please enter non-empty value\n";
+		std::cout << "Error: please enter non-empty value: ";
 		std::getline(std::cin, response);
 	}
 	return (response);
@@ -45,7 +45,7 @@ Contact	add_contact()
 int	main(void)
 {
 	Phonebook	pbook;
-	std::string	msg = "How would you like to use the phonebook? (ADD / SEARCH) or EXIT\n";
+	std::string	msg = "How would you like to use the phonebook? ADD, SEARCH or EXIT\n";
 	std::string	response = "not null";
 
 	while (response != "EXIT")
