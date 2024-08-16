@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:42:28 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 10:18:36 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 17:15:03 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,38 @@ void	search_contact(Contact *info) {
 	int			chosen_idx;
 	std::string	response;
 
-	std::cout << "Which index would you like to view? (leave empty for all): ";
+	std::cout << "\nWhich index would you like to view? (leave empty for all): ";
 	std::cin.ignore();
 	std::getline(std::cin, response);
 	response = trim(response);
-	printf("\n%10s | %10s | %10s | %10s\n",
-					"Index",
-					"First Name",
-					"Last Name",
-					"Nickname");
-	if (is_numeric(response)) {
-		chosen_idx = std::atoi(response.c_str());
+	std::cout << std::endl << std::setw(10) << std::right << "Index" << " | "
+	<< std::setw(10) << std::right << "First Name" << " | "
+	<< std::setw(10) << std::right << "Last Name" << " | "
+	<< std::setw(10) << std::right << "Nickname" << std::endl;
+	std::istringstream	iss(response);
+	if (iss >> chosen_idx)
 		print_phonebook_idx(info, chosen_idx);
-	}
 	else
 		print_phonebook_all(info);
 }
+
+class Phonebook {
+	public:
+		Phonebook() : count(0) {}
+		void	add() {
+			info[count % 8] = add_contact();
+			info[count % 8].idx = count % 8;
+			++count;
+			return ;
+		}
+		void	search() {
+			search_contact(info);
+			return ;
+		}
+	private:
+		int count;
+		Contact	info[8];
+};
 
 int	main(void)
 {
