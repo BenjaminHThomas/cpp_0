@@ -6,32 +6,65 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:42:22 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 16:46:22 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 19:38:39 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <cstdio> // for printf
-#include <string> // for std::string
-#include <iostream> // for std::cout
-#include <cstring> // for strncmp and others
-#include <algorithm> // for transform
-#include <iomanip> // for setw
-#include <sstream> // for isstringstream
+#include "contact.h"
+#include <sstream>
+#define BOOK_SIZE 8
 
-class Contact {
+class PhoneBook {
+	private:
+		int		count;
+		Contact	Contacts[BOOK_SIZE];
+		void	PrintAll();
 	public:
-		int			idx;
-		std::string firstName;
-		std::string lastName;
-		std::string nickname;
-		std::string phoneNumber;
-		std::string darkestSecret;
+		PhoneBook();
+		void	Add();
+		void	Search();
 };
 
-std::string	trim(const std::string &str);
-std::string	get_input();
-bool		is_numeric(std::string line);
-void		print_phonebook_idx(Contact *info, int idx);
-void		print_phonebook_all(Contact *info);
-Contact		add_contact();
-void		search_contact(Contact *info);
+PhoneBook::PhoneBook() {
+	count = 0;
+};
+
+void	PhoneBook::Add() {
+	Contact	NewContact;
+
+	NewContact.CreateContact();
+	this->Contacts[this->count % BOOK_SIZE] = NewContact;
+	this->count++;
+}
+
+void	PhoneBook::PrintAll() {
+	Contact	curr;
+
+	std::cout << std::endl << std::setw(10) << std::right << "Index" << " | "
+	<< std::setw(10) << std::right << "First Name" << " | "
+	<< std::setw(10) << std::right << "Last Name" << " | "
+	<< std::setw(10) << std::right << "Nickname" << std::endl;
+	for (int i = 0; i < 8; ++i)
+	{
+		curr = this->Contacts[i];
+		if (curr.GetFirstName().empty())
+			break ;
+		std::cout << std::setw(10) << std::right << i << " | "
+		<< std::setw(10) << std::right << curr.FormatString(curr.GetFirstName(), 10) << " | "
+		<< std::setw(10) << std::right << curr.FormatString(curr.GetLastName(), 10) << " | "
+		<< std::setw(10) << std::right << curr.FormatString(curr.GetNickname(), 10) << std::endl;
+	}
+}
+
+void	PhoneBook::Search() {
+	std::string	response;
+	int			chosen_idx;
+
+	PrintAll();
+	std::cout << "\nWhich index would you like to view?: ";
+	std::cin.ignore();
+	std::getline(std::cin, response);
+	std::istringstream	iss(response);
+	if (iss >> chosen_idx && chosen_idx < BOOK_SIZE)
+		this->Contacts[chosen_idx].Display();
+}
