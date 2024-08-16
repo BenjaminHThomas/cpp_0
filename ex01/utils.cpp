@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 14:20:53 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 16:45:53 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 17:29:48 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	print_phonebook_idx(Contact *info, int idx) {
 		print_phonebook_all(info);
 		return ;
 	}
-	idx = idx;
 	if (idx < 8 && !info[idx].firstName.empty()) {
 		std::cout << std::setw(10) << std::right << info[idx].idx << " | "
 		<< std::setw(10) << std::right << formatString(info[idx].firstName) << " | "
