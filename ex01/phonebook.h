@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:42:22 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 19:38:39 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 20:18:38 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ class PhoneBook {
 
 PhoneBook::PhoneBook() {
 	count = 0;
-};
+}
 
 void	PhoneBook::Add() {
 	Contact	NewContact;
 
 	NewContact.CreateContact();
-	this->Contacts[this->count % BOOK_SIZE] = NewContact;
-	this->count++;
+	if (!NewContact.GetFirstName().empty()) {
+		this->Contacts[this->count % BOOK_SIZE] = NewContact;
+		this->count++;
+	}
 }
 
 void	PhoneBook::PrintAll() {
@@ -62,9 +64,10 @@ void	PhoneBook::Search() {
 
 	PrintAll();
 	std::cout << "\nWhich index would you like to view?: ";
-	std::cin.ignore();
 	std::getline(std::cin, response);
 	std::istringstream	iss(response);
-	if (iss >> chosen_idx && chosen_idx < BOOK_SIZE)
+	if (iss >> chosen_idx
+		&& chosen_idx >= 0
+		&& chosen_idx < BOOK_SIZE)
 		this->Contacts[chosen_idx].Display();
 }

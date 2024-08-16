@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:08:59 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 19:34:26 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 20:09:27 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,11 @@ int	main(void)
 	while (response != "EXIT")
 	{
 		std::cout << msg;
-		std::cin >> response;
+		std::getline(std::cin, response);
 		std::transform(response.begin(), response.end(), response.begin(), ::toupper);
 		if (response == "ADD")
 			pbook.Add();
 		else if (response == "SEARCH")
 			pbook.Search();
-		else if (response != "EXIT")
-			std::cout << "Error: invalid input.\n";
 	}
 }

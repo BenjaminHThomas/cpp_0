@@ -6,7 +6,7 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:08:33 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 19:39:39 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 20:18:22 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ class Contact {
 		std::string	nickname;
 		std::string	phoneNumber;
 		std::string	darkestSecret;
-		std::string	get_input();
+		std::string	GetInput();
 		std::string	trim(const std::string &str);
+		void		WipeContact();
 	public:
 		Contact();
 		void		CreateContact();
@@ -33,23 +34,42 @@ class Contact {
 		std::string	GetPhone();
 		std::string	GetSecret();
 		void		Display();
-		std::string	FormatString(const std::string &str, int len);
+		std::string	FormatString(const std::string &str, std::string::size_type len);
 };
 
 Contact::Contact() {}
 
 void	Contact::CreateContact() {
 	std::cout << "First Name: ";
-	std::cin.ignore();
-	this->firstName = get_input();
+	this->firstName = GetInput();
+	if (this->firstName.empty()) {
+		this->WipeContact();
+		return ;
+	}
 	std::cout << "Last Name: ";
-	this->lastName = get_input();
+	this->lastName = GetInput();
+	if (this->lastName.empty()) {
+		this->WipeContact();
+		return ;
+	}
 	std::cout << "Nickname: ";
-	this->nickname = get_input();
+	this->nickname = GetInput();
+	if (this->nickname.empty()) {
+		this->WipeContact();
+		return ;
+	}
 	std::cout << "Phone number: ";
-	this->phoneNumber = get_input();
+	this->phoneNumber = GetInput();
+	if (this->phoneNumber.empty()) {
+		this->WipeContact();
+		return ;
+	}
 	std::cout << "Darkest secret: ";
-	this->darkestSecret = get_input();
+	this->darkestSecret = GetInput();
+	if (this->darkestSecret.empty()) {
+		this->WipeContact();
+		return ;
+	}
 }
 
 std::string	Contact::GetFirstName() {
@@ -65,7 +85,7 @@ std::string	Contact::GetNickname() {
 }
 
 std::string	Contact::GetPhone() {
-	return (this->nickname);
+	return (this->phoneNumber);
 }
 
 std::string	Contact::GetSecret() {
@@ -82,13 +102,15 @@ std::string	Contact::trim(const std::string &str) {
 	return (str.substr(first, (last - first + 1)));
 }
 
-std::string	Contact::get_input() {
+std::string	Contact::GetInput() {
 	std::string	response;
+	int			nullCounter = 0;
 
 	std::getline(std::cin, response);
 	response = this->trim(response);
-	while (response.empty())
+	while (response.empty() && nullCounter < 3)
 	{
+		++nullCounter;
 		std::cout << "Error: please enter non-empty value: ";
 		std::getline(std::cin, response);
 		response = trim(response);
@@ -96,19 +118,30 @@ std::string	Contact::get_input() {
 	return (response);
 }
 
-// Crops strings over 10 characters, adding "."
-std::string	Contact::FormatString(const std::string &str, int len) {
-	if ((int)str.length() > len) {
+// Crops strings over len characters long, adding "." to the end.
+std::string	Contact::FormatString(const std::string &str, std::string::size_type len) {
+	if (str.length() > len) {
 		return (str.substr(0, len - 1) + ".");
 	}
 	return (str);
 }
 
 void	Contact::Display() {
+	if (this->firstName.empty())
+		return ;
 	std::cout << std::endl
 	<< std::setw(20) << "First Name: " << FormatString(this->firstName, 20) << std::endl
 	<< std::setw(20) << "Last Name: " << FormatString(this->lastName, 20) << std::endl
 	<< std::setw(20) << "Nickname: " << FormatString(this->nickname, 20) << std::endl
 	<< std::setw(20) << "Phone Number: " << FormatString(this->phoneNumber, 20) << std::endl
 	<< std::setw(20) << "Darkest Secret: " << FormatString(this->darkestSecret, 20) << std::endl;
+}
+
+void	Contact::WipeContact() {
+	std::cout << "\nToo many null inputs, abandoning contact...\n";
+	this->firstName.clear();
+	this->lastName.clear();
+	this->nickname.clear();
+	this->phoneNumber.clear();
+	this->darkestSecret.clear();
 }
