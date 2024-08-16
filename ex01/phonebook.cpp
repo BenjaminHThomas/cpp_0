@@ -6,26 +6,13 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 18:42:28 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/15 13:53:12 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/16 10:18:36 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.h"
 
-static std::string	get_input()
-{
-	std::string	response;
-	std::getline(std::cin, response);
-	while (response.empty() || response == "\n")
-	{
-		std::cout << "Error: please enter non-empty value: ";
-		std::getline(std::cin, response);
-	}
-	return (response);
-}
-
-Contact	add_contact()
-{
+Contact	add_contact() {
 	Contact		cont;
 
 	std::cout << "First Name: ";
@@ -42,10 +29,31 @@ Contact	add_contact()
 	return (cont);
 }
 
+void	search_contact(Contact *info) {
+	int			chosen_idx;
+	std::string	response;
+
+	std::cout << "Which index would you like to view? (leave empty for all): ";
+	std::cin.ignore();
+	std::getline(std::cin, response);
+	response = trim(response);
+	printf("\n%10s | %10s | %10s | %10s\n",
+					"Index",
+					"First Name",
+					"Last Name",
+					"Nickname");
+	if (is_numeric(response)) {
+		chosen_idx = std::atoi(response.c_str());
+		print_phonebook_idx(info, chosen_idx);
+	}
+	else
+		print_phonebook_all(info);
+}
+
 int	main(void)
 {
 	Phonebook	pbook;
-	std::string	msg = "How would you like to use the phonebook? ADD, SEARCH or EXIT\n";
+	std::string	msg = "\nHow would you like to use the phonebook? ADD, SEARCH or EXIT\n";
 	std::string	response = "not null";
 
 	while (response != "EXIT")
@@ -54,9 +62,9 @@ int	main(void)
 		std::cin >> response;
 		std::transform(response.begin(),response.end(),response.begin(), ::toupper);
 		if (response == "ADD")
-			pbook.ADD();
+			pbook.add();
 		else if (response == "SEARCH")
-			pbook.SEARCH();
+			pbook.search();
 		else if (response != "EXIT")
 			std::cout << "Error: invalid input.\n";
 	}
