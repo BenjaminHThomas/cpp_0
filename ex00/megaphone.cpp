@@ -6,18 +6,25 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 07:40:42 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/06 18:38:27 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/17 13:20:08 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string> // for std::string
 #include <iostream> // for std::cout
-#include <algorithm> // for std::transform
 #include <cctype> // for std::toupper
+
+void	to_upper(std::string &msg)
+{
+	for (std::string::size_type i = 0; i < msg.size(); ++i) {
+		if (msg[i] >= 'a' && msg[i] <= 'z')
+			msg[i] -= 32;
+	}
+}
 
 void	print_msg(std::string msg = "* LOUD AND UNBEARABLE FEEDBACK NOISE *")
 {
-	std::transform(msg.begin(), msg.end(), msg.begin(), ::toupper);
+	to_upper(msg);
 	std::cout << msg;
 }
 
