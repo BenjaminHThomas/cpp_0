@@ -6,12 +6,19 @@
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 18:08:59 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 20:09:27 by bthomas          ###   ########.fr       */
+/*   Updated: 2024/08/17 13:22:44 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "phonebook.h"
-#include <algorithm>
+
+void	to_upper(std::string &msg)
+{
+	for (std::string::size_type i = 0; i < msg.size(); ++i) {
+		if (msg[i] >= 'a' && msg[i] <= 'z')
+			msg[i] -= 32;
+	}
+}
 
 int	main(void)
 {
@@ -23,7 +30,7 @@ int	main(void)
 	{
 		std::cout << msg;
 		std::getline(std::cin, response);
-		std::transform(response.begin(), response.end(), response.begin(), ::toupper);
+		to_upper(response);
 		if (response == "ADD")
 			pbook.Add();
 		else if (response == "SEARCH")
