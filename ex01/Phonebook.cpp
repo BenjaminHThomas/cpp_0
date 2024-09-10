@@ -1,29 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   phonebook.h                                        :+:      :+:    :+:   */
+/*   Phonebook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/06 18:42:22 by bthomas           #+#    #+#             */
-/*   Updated: 2024/08/16 20:18:38 by bthomas          ###   ########.fr       */
+/*   Created: 2024/09/10 10:12:54 by bthomas           #+#    #+#             */
+/*   Updated: 2024/09/10 10:13:03 by bthomas          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "contact.h"
-#include <sstream>
-#define BOOK_SIZE 8
-
-class PhoneBook {
-	private:
-		int		count;
-		Contact	Contacts[BOOK_SIZE];
-		void	PrintAll();
-	public:
-		PhoneBook();
-		void	Add();
-		void	Search();
-};
+#include "Phonebook.hpp"
 
 PhoneBook::PhoneBook() {
 	count = 0;

@@ -6,13 +6,13 @@
 #    By: bthomas <bthomas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/05 07:42:06 by bthomas           #+#    #+#              #
-#    Updated: 2024/08/16 20:19:23 by bthomas          ###   ########.fr        #
+#    Updated: 2024/09/10 10:13:38 by bthomas          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 		= Phonebook
 
-SRC			= main.cpp
+SRC			= main.cpp Contact.cpp Phonebook.cpp
 
 OBJDIR		= objs
 OBJS		= $(addprefix $(OBJDIR)/,$(SRC:.cpp=.o))
